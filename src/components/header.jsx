@@ -10,6 +10,7 @@ export default function Header() {
             </Link>
             <Link to="/daily-card" className="text-white hover:text-gray-400">Carta do Dia</Link>
             <Link to="/reading" className="text-white hover:text-gray-400 ml-4">Leitura</Link>
+            <Link to="/all-cards" className="text-white hover:text-gray-400 ml-4">Todas as Cartas</Link>
         </div>
       </div>
     </>
