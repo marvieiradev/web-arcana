@@ -8,9 +8,7 @@ export default function DailyCard() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-6">
-      <h1 className="text-3xl font-bold text-blue-500">Carta do dia</h1>
       <Board type="diary" data={randomCard} />
-      <Message data={randomCard[0].significado} />
     </div>
   );
 }
