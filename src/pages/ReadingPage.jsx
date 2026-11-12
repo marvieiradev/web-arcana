@@ -1,49 +1,57 @@
 import { useState } from "react";
 import Board from "../components/board";
 import Message from "../components/message";
+import { ARCANOS_MAIORES } from "../data/arcanos.js";
 
 export default function Reading() {
-  const temporal = {
-    readingType: "three-cards",
-    title: "Presente, Passado e Futuro",
-    message:
-      " Esta é a leitura de 3 cartas. Ela traz uma mensagem especial para você. Aproveite a leitura e reflita sobre o significado destas cartas em sua vida.",
-    cardTitles: ["Presente", "Passado", "Futuro"],
-  };
+  const randomCards = [...ARCANOS_MAIORES]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
 
-  const situational = {
-    readingType: "three-cards",
-    title: "Situação, Desafio e Conselho",
-    message:
-      "Esta é a leitura de 3 cartas. Ela traz uma mensagem especial para você. Aproveite a leitura e reflita sobre o significado destas cartas em sua vida.",
-    cardTitles: ["Situação", "Desafio", "Conselho"],
-  };
+  const [selectedReadType, setSelectedReadType] = useState(null);
+  const readTypes = [
+    {
+      id: "temporal",
+      title: "Presente, Passado e Futuro",
+      cardTitles: ["Presente", "Passado", "Futuro"],
+    },
+    {
+      id: "situational",
+      title: "Situação, Desafio e Conselho",
+      cardTitles: ["Situação", "Desafio", "Conselho"],
+    },
+  ];
 
-  const [readType, setReadType] = useState(null);
+  if (selectedReadType) {
+    const randomCards = [...ARCANOS_MAIORES]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+  }
 
   return (
     <>
-      {readType === null && (
+      {selectedReadType === null && (
         <div className="flex flex-col items-center justify-center h-screen">
           <h1 className="text-2xl font-bold mb-4">Escolha o tipo de leitura</h1>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={() => setReadType(temporal)}
+            onClick={() => setSelectedReadType(readTypes[0])}
           >
             Presente, Passado e Futuro
           </button>
           <button
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mt-2"
-            onClick={() => setReadType(situational)}
+            onClick={() => setSelectedReadType(readTypes[1])}
           >
             Situação, Desafio e Conselho
           </button>
         </div>
       )}
-      {readType !== null && (
+      {selectedReadType !== null && (
         <div className="flex flex-col items-center justify-center h-screen gap-8">
-          <Board data={readType} />
-          <Message data={"Lorem20 ipsum dolor sit amet"} />
+          <h1 className="text-3xl font-bold text-blue-500">{selectedReadType.title}</h1>
+          <Board type={selectedReadType} data={randomCards} />
+          <Message data={"Esta é a leitura de 3 cartas. Ela traz uma mensagem especial para você. Aproveite a leitura e reflita sobre o significado destas cartas em sua vida."} />
         </div>
       )}
     </>
