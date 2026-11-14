@@ -1,7 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Message from "./message";
+import Shuffle from "./shuffle";
+import { Link } from "react-router-dom";
+
 export default function Board({ type, data }) {
   const [revealedCount, setRevealedCount] = useState(0);
+  const [isShuffling, setIsShuffling] = useState(true);
+  const [countdown, setCountdown] = useState(3);
+
+  useEffect(() => {
+    if (!isShuffling) return;
+
+    if (countdown === 0) {
+      setIsShuffling(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [isShuffling, countdown]);
 
   const readTypes = [
     {
@@ -28,7 +48,10 @@ export default function Board({ type, data }) {
   };
 
   const readType = readTypes.find((item) => item.id === type);
-  console.log("readType:", readType);
+
+  if (isShuffling) {
+    return <Shuffle />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
@@ -48,16 +71,10 @@ export default function Board({ type, data }) {
                 }`}
               >
                 <div className="flex items-center justify-center relative">
-                  {!isRevealed && (
-                    <p className="absolute bg-blue-800 text-white p-2">
-                      Clique para revelar
-                    </p>
-                  )}
-
                   <img
                     src={isRevealed ? card.cardImage : ocultedCard.image}
                     alt="Carta"
-                    className="h-80"
+                    className="h-80 card-board-appear"
                   />
                 </div>
                 <p className="text-center text-lg text-blue-900 font-bold">
@@ -87,6 +104,14 @@ export default function Board({ type, data }) {
           );
         })}
       </div>
+      {revealedCount === data.length && (
+        <Link
+          to="/"
+          className="mt-4 text-white bg-blue-800 p-2 rounded hover:bg-blue-700"
+        >
+          Voltar para a página inicial
+        </Link>
+      )}
     </div>
   );
 }

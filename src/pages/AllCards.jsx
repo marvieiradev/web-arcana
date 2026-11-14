@@ -10,7 +10,7 @@ export default function AllCards() {
             <img
               src={arcano.cardImage}
               alt={arcano.nome}
-              className="w-20 h-30 "
+              className="w-30 h-40 card-board-appear"
             />
             <h2 className="text-sm text-center font-serif text-purple-800">{arcano.numero}</h2>
             <h3 className="text-xs text-center font-serif text-purple-800">{arcano.nome}</h3>
