@@ -10,7 +10,7 @@ export default function Shuffle() {
             key={card}
             src="/cards/card-back.webp"
             alt={`Carta ${index + 1}`}
-            className="absolute h-80 w-auto card-appear"
+            className="absolute h-40 md:h-80 w-auto card-appear left-[-50%] -translate-x-1/2"
             style={{
               left: "50%",
               marginLeft: `${(index - 2) * 35}px`,

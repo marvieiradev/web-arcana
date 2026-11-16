@@ -56,7 +56,7 @@ export default function Board({ type, data }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <div className="w-full overflow-x-auto gap-2">
-        <h1 className="text-3xl font-bold text-blue-500 mb-8">
+        <h1 className="text-xl md:text-3xl font-bold text-blue-500 mb-8">
           {readType?.title}
         </h1>
         <div className="flex items-center justify-center gap-4">
@@ -74,13 +74,13 @@ export default function Board({ type, data }) {
                   <img
                     src={isRevealed ? card.cardImage : ocultedCard.image}
                     alt="Carta"
-                    className="h-80 card-board-appear"
+                    className="h-40 md:h-80 card-appear"
                   />
                 </div>
-                <p className="text-center text-lg text-blue-900 font-bold">
+                <p className="text-center text-base md:text-lg text-blue-900 font-bold">
                   {readType?.cardTitles[index] || ""}
                 </p>
-                <p className="text-center">
+                <p className="text-center text-sm md:text-base">
                   {isRevealed
                     ? `${card.numero} - ${card.nome}`
                     : ocultedCard.title}
@@ -90,12 +90,13 @@ export default function Board({ type, data }) {
           })}
         </div>
 
-        {data.map((card, index) => {
-          const isRevealed = index < revealedCount;
-          return (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center mt-2"
+        <div className="mt-4">
+          {data.map((card, index) => {
+            const isRevealed = index < revealedCount;
+            return (
+              <div
+                key={index}
+              className="flex flex-col items-center justify-center p-2"
             >
               <Message
                 data={isRevealed ? card.significado : ocultedCard.message}
@@ -103,6 +104,7 @@ export default function Board({ type, data }) {
             </div>
           );
         })}
+        </div>
       </div>
       {revealedCount === data.length && (
         <Link
