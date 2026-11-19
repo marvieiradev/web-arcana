@@ -16,6 +16,7 @@
   --color-muted-2: var(--muted-2);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
+  --font-playfair: var(--playfair)
 }
 
 :root {
@@ -33,6 +34,7 @@
   --muted-2: #696678;
   --line: #d4af3733;
   --line-soft: #ffffff14;
+  --playfair: "Playfair Display", serif;
 }
 
 #root {
