@@ -16,9 +16,9 @@ export default function Header() {
             </span>
           </div>
         </Link>
-        <div className="flex items-center text-xs text-muted-2 justify-center gap-2">
-          <span className="header-pulse" />
-          <span className="hidden sm:inline uppercase">
+        <div className="hidden md:flex items-center text-sm text-muted-2 justify-center gap-2  uppercase">
+          <span className="w-2 h-2 bg-gold shadow-sm shadow-gold rounded-full" />
+          <span className="text-xs">
             uma leitura para este momento
           </span>
         </div>
@@ -33,12 +33,12 @@ export default function Header() {
             {soundOn ? (
               <>
                 <Volume2 size={15} />
-                <span>som ligado</span>
+                <span className="hidden md:block">som ligado</span>
               </>
             ) : (
               <>
                 <VolumeX size={15} />
-                <span>som desligado</span>
+                <span className="hidden md:block">som desligado</span>
               </>
             )}
           </button>
