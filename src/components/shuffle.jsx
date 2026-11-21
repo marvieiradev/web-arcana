@@ -10,7 +10,7 @@ export default function Shuffle() {
           return (
             <img
               key={card}
-              src="/cards/card-back.webp"
+              src="cards/CardBack.webp"
               alt={`Carta ${index + 1}`}
               className="absolute h-40 md:h-80 w-auto card-shuffle"
               style={{

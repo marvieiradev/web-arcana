@@ -84,7 +84,7 @@ export default function Home() {
               return (
                 <img
                   key={card}
-                  src="/card-hero.webp"
+                  src="cards/CardBack.webp"
                   alt={`Carta ${index + 1}`}
                   className="absolute h-55 md:h-75 w-auto card-shuffle"
                   style={{

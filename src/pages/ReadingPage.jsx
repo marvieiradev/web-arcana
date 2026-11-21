@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import Board from "../components/board";
-import Message from "../components/message";
 import { useLocation } from "react-router-dom";
-import { ARCANOS_MAIORES } from "../data/arcanos.js";
+import { ARCANOS } from "../data/arcanos.js";
 
 export default function Reading() {
   const navigate = useNavigate();
-  const randomCards = [...ARCANOS_MAIORES]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
+
+  const randomCards = [...ARCANOS].sort(() => Math.random() - 0.5).slice(0, 3);
+
+  console.log(randomCards)
 
   const location = useLocation();
   const selectedReadType = location.state?.readType ?? null;
