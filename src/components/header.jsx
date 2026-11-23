@@ -6,7 +6,7 @@ export default function Header() {
   const [soundOn, setSoundOn] = useState(true);
 
   return (
-    <div className="w-full flex items-center justify-center min-h-21 bg-obsidian mx-auto px-4 py-2 border-b border-line pb-2">
+    <div className="w-full flex items-center justify-center min-h-18 bg-obsidian mx-auto px-4 py-2 border-b border-line pb-2">
       <div className="w-full max-w-340 flex items-center justify-between gap-4 text-text">
         <Link to="/" className="">
           <div className="flex justify-center items-center gap-2 cursor-pointer hover:scale-105">
