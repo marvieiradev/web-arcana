@@ -150,8 +150,6 @@ const HIDDEN_CARD = {
   message: "Esta carta está oculta. Clique para revelar.",
 };
 
-
-
 export default function Board({ type, data }) {
   const [revealedCount, setRevealedCount] = useState(0);
   const [isShuffling, setIsShuffling] = useState(true);
@@ -208,20 +206,35 @@ export default function Board({ type, data }) {
                   isNext ? "cursor-pointer" : ""
                 }`}
               >
-                <img
-                  src={isRevealed ? card.imageCard : HIDDEN_CARD.image}
-                  alt={isRevealed ? card.nome : HIDDEN_CARD.title}
-                  className="h-40 w-auto md:h-80"
-                />
+                <div className="perspective-midrange">
+                  <div className="transform-[rotateX(25deg)] origin-[bottom_center]">
+                    <div className="card-scene h-40 w-auto md:h-80 aspect-2/3 card-appear">
+                      <div
+                        className={`card-inner ${
+                          isRevealed ? "is-flipped" : ""
+                        }`}
+                      >
+                        <img
+                          src={HIDDEN_CARD.image}
+                          alt="Carta virada para baixo"
+                          className="card-face"
+                        />
+                        <img
+                          src={card.imageCard}
+                          alt={isRevealed ? card.nome : "Carta oculta"}
+                          className="card-face card-front"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <p className="text-center text-base font-bold text-blue-900 md:text-lg">
                   {readType.cardTitles[index] || `Carta ${index + 1}`}
                 </p>
 
                 <p className="text-center text-sm md:text-base">
-                  {isRevealed
-                    ? `${card.nome}`
-                    : HIDDEN_CARD.title}
+                  {isRevealed ? `${card.nome}` : HIDDEN_CARD.title}
                 </p>
               </div>
             );
