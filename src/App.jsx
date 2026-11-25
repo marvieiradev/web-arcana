@@ -7,7 +7,7 @@ function App() {
     <>
       <main className="flex flex-col items-center bg-foreground text-background h-full">
         <Header/>
-        <Outlet className="flex-1 w-full"/>
+        <Outlet className=""/>
         <Footer/>
       </main>
     </>
