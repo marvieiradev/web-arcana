@@ -18,7 +18,7 @@ export default function Reading() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen gap-8">
+      <div className="flex flex-col items-center">
         <Board type={selectedReadType} data={randomCards} />
       </div>
     </>

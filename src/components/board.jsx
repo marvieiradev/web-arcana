@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Message from "./message";
 import Shuffle from "./shuffle";
-import { data, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Eye, RotateCcw } from "lucide-react";
 
 const READ_TYPES = [
   {
@@ -65,13 +66,28 @@ export default function Board({ type, data }) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <div className="w-full max-w-7xl">
-        <h1 className="mb-8 text-xl font-bold text-white md:text-3xl font-playfair">
-          {readType.title}
-        </h1>
+      <div className="">
+        <div className="flex flex-col md:flex-row w-full justify-between md:items-baseline-last gap-4 p-2 mt-2">
+          <div className="flex flex-col text-star gap-2">
+            <h1 className="text-2xl font-bold text-white md:text-4xl font-playfair text-start">
+              {readType.title}
+            </h1>
+            <p className="text-xs md:text-sm text-muted text-start">
+              {data.length !== quantity
+                ? `${data.length - quantity} ${data.length <= 2 ? "cartas esperam" : "carta espera"}  o seu toque.`
+                : "A leitura está completa. Observe o que ressoa antes de seguir."}
+            </p>
+          </div>
+          <Link
+            to="/"
+            className="flex gap-2 justify-center items-center text-sm border py-2 px-4 border-gold/50 bg-transparent text-gold hover:border-gold hover:bg-gold/10 max-w-50 uppercase"
+          >
+            <RotateCcw size={15} /> Nova tiragem
+          </Link>
+        </div>
 
-        <div className="mt-10 m-2 p-4 border border-gold/50  bg-radial-[at_50%_40%] from-night to-purple/10 to-45%">
-          <div className="flex items-center justify-between uppercase text-xs text-muted">
+        <div className="mt-4 m-2 p-4 border border-gold/50  bg-radial-[at_50%_40%] from-night to-purple/10 to-45%">
+          <div className="flex items-center justify-between uppercase text-xs text-muted-2">
             <div className="flex gap-1 justify-center items-center">
               <span className="w-2 h-2 bg-gold shadow-sm shadow-gold rounded-full" />{" "}
               mesa virtual
@@ -102,12 +118,12 @@ export default function Board({ type, data }) {
                       isNext ? "cursor-pointer" : ""
                     }`}
                   >
-                    <span className="mt-8 -mb-4 md:-mb-8 uppercase text-xs md:text-sm text-gold/90">
+                    <span className="mt-8 -mb-4 uppercase text-xs md:text-sm text-gold/90">
                       {readType.cardTitles[index] || `Carta ${index + 1}`}
                     </span>
                     <div className="perspective-midrange">
                       <div className="transform-[rotateX(15deg)] origin-[bottom_center]">
-                        <div className="card-scene h-35 w-auto md:h-80 aspect-3/4 card-appear">
+                        <div className="card-scene h-35 w-auto md:h-70 aspect-3/4 card-appear">
                           <div
                             className={`card-inner ${
                               isRevealed ? "is-flipped" : ""
@@ -136,9 +152,18 @@ export default function Board({ type, data }) {
               );
             })}
           </div>
+          <div className="flex items-center justify-between uppercase text-xs text-muted-2 mt-6">
+            <div className="flex gap-1 justify-center items-center">
+              <Eye size={13} /> toque em cada carta para virar
+            </div>
+            <span>
+              {quantity} {quantity === 1 ? "posição" : "posições"} · leitura
+              intuitiva
+            </span>
+          </div>
         </div>
 
-        <div className="mt-6 w-full">
+        <div className="flex flex-col gap-2 text-sm border py-2 px-4 border-gold/50 bg-osidian mt-6 mb-6">
           {data.map((card, index) => {
             const isRevealed = index < revealedCount;
             const interpretationKey = readType.interpretationKeys[index];
@@ -151,31 +176,23 @@ export default function Board({ type, data }) {
             return (
               <div
                 key={`${card.id}-message-${index}`}
-                className="flex flex-col items-center justify-center p-2"
+                className="flex flex-col p-2"
               >
                 {isRevealed && (
-                  <h2 className="mb-2 font-bold text-blue-900">
-                    {readType.cardTitles[index]}
-                  </h2>
+                  <>
+                    <span className="mb-1 text-gold text-md text-start">
+                      {readType.cardTitles[index]}
+                    </span>
+                    <span className="text-start text-sm">
+                      {isRevealed ? interpretation : HIDDEN_CARD.message}
+                    </span>
+                  </>
                 )}
-
-                <Message
-                  data={isRevealed ? interpretation : HIDDEN_CARD.message}
-                />
               </div>
             );
           })}
         </div>
       </div>
-
-      {revealedCount === data.length && (
-        <Link
-          to="/"
-          className="mt-4 rounded bg-blue-800 p-2 text-white hover:bg-blue-700"
-        >
-          Voltar para a página inicial
-        </Link>
-      )}
     </div>
   );
 }
