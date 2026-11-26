@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Message from "./message";
 import Shuffle from "./shuffle";
 import { Link } from "react-router-dom";
-import { Eye, RotateCcw, Sparkles, Gem, Zap, CircleHelp } from "lucide-react";
+import { Eye, RotateCcw, Sparkles, Zap, CircleHelp } from "lucide-react";
+import ReadingSynthesis from "./readingSynthesis";
 
 const READ_TYPES = [
   {
@@ -31,18 +31,15 @@ const HIDDEN_CARD = {
   message: "Clique para revelar.",
 };
 
-const READING_ICONS = [Zap,Sparkles,CircleHelp]
+const READING_ICONS = [Zap, Sparkles, CircleHelp];
 
-console.log(READING_ICONS)
+console.log(READING_ICONS);
 
 export default function Board({ type, data }) {
   const [revealedCount, setRevealedCount] = useState(0);
   const [isShuffling, setIsShuffling] = useState(true);
   const [countdown, setCountdown] = useState(3);
   const [quantity, setQuantity] = useState(0);
-  const allRevealed = quantity === data.length;
-
-  //console.log(data)
 
   useEffect(() => {
     if (!isShuffling) return;
@@ -161,107 +158,13 @@ export default function Board({ type, data }) {
             <div className="flex gap-1 justify-center items-center">
               <Eye size={13} /> toque em cada carta para virar
             </div>
-            <span>
+            <span className="hidden md:block">
               {quantity} {quantity === 1 ? "posição" : "posições"} · leitura
               intuitiva
             </span>
           </div>
         </div>
-
-        <div className="mt-4 m-2 p-4 border border-gold/50  bg-radial-[at_50%_40%] from-night to-purple/10 to-45%">
-          <div className="flex w-full items-center justify-between text-xs text-gold uppercase">
-            <div className="flex gap-2 items-center">
-              <Sparkles size={14} />{" "}
-              {allRevealed ? "Síntese da leitura" : "A mesa aguarda"}
-            </div>
-            <div className="flex gap-2 items-center">
-              <Gem size={17} />
-              <span>
-                {allRevealed
-                  ? "leitura completa"
-                  : `${quantity}/${data.length} reveladas`}
-              </span>
-            </div>
-          </div>
-
-          <h2 className="text-lg font-bold text-white md:text-xl font-playfair text-start mt-4">
-            {allRevealed
-              ? "O fio entre as cartas"
-              : "Revele cada carta para ouvir a história"}
-          </h2>
-
-          {!allRevealed ? (
-            <div className="flex items-center justify-center text-sm md:text-base gap-2 mt-8">
-              <Eye size={19} className="text-gold" />
-              <p className="text-muted">
-                <em>
-                  A posição revela o seu significado quando você toca nela. Vá
-                  no seu tempo.
-                </em>
-              </p>
-            </div>
-          ) : (
-            <>
-              {data.map((card, index) => {
-                const isRevealed = index < revealedCount;
-                const interpretationKey = readType.interpretationKeys[index];
-
-                const interpretation =
-                  card.interpretacoes?.[interpretationKey] ??
-                  card.significado ??
-                  "Interpretação indisponível.";
-
-                return (
-                  <div
-                    key={`${card.id}-message-${index}`}
-                    className="flex flex-col p-2"
-                  >
-                    {isRevealed && (
-                      <>
-                        <span className="mb-1 text-gold text-md text-start">
-                          {readType.cardTitles[index]}
-                        </span>
-                        <span className="text-start text-sm">
-                          {isRevealed ? interpretation : HIDDEN_CARD.message}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                );
-              })}
-            </>
-          )}
-        </div>
-
-        {/*<div className="flex flex-col gap-2 text-sm border py-2 px-4 border-gold/50 bg-osidian mt-6 mb-6">
-          {data.map((card, index) => {
-            const isRevealed = index < revealedCount;
-            const interpretationKey = readType.interpretationKeys[index];
-
-            const interpretation =
-              card.interpretacoes?.[interpretationKey] ??
-              card.significado ??
-              "Interpretação indisponível.";
-
-            return (
-              <div
-                key={`${card.id}-message-${index}`}
-                className="flex flex-col p-2"
-              >
-                {isRevealed && (
-                  <>
-                    <span className="mb-1 text-gold text-md text-start">
-                      {readType.cardTitles[index]}
-                    </span>
-                    <span className="text-start text-sm">
-                      {isRevealed ? interpretation : HIDDEN_CARD.message}
-                    </span>
-                  </>
-                )}
-              </div>
-            );
-          })}
-        </div>*/}
+        <ReadingSynthesis data={data} quantity={quantity} readType={readType} />
       </div>
     </div>
   );
