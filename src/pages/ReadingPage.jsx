@@ -8,8 +8,6 @@ export default function Reading() {
 
   const randomCards = [...ARCANOS].sort(() => Math.random() - 0.5).slice(0, 3);
 
-  console.log(randomCards)
-
   const location = useLocation();
   const selectedReadType = location.state?.readType ?? null;
   if (!selectedReadType) {
